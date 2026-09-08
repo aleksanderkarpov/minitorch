@@ -15,12 +15,14 @@ def make_pts(N: int) -> List[Tuple[float, float]]:
 
 @dataclass
 class Graph:
+
     N: int
     X: List[Tuple[float, float]]
     y: List[int]
 
 
 def simple(N: int) -> Graph:
+    """Vertical split: label 1 if $x_1 < 0.5$, else 0."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -30,6 +32,7 @@ def simple(N: int) -> Graph:
 
 
 def diag(N: int) -> Graph:
+    """Diagonal split: label 1 if $x_1 + x_2 < 0.5$, else 0."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -39,6 +42,7 @@ def diag(N: int) -> Graph:
 
 
 def split(N: int) -> Graph:
+    """Two vertical bands: label 1 if $x_1 < 0.2$ or $x_1 > 0.8$, else 0."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -48,6 +52,7 @@ def split(N: int) -> Graph:
 
 
 def xor(N: int) -> Graph:
+    """XOR pattern: label 1 in the top-left and bottom-right quadrants, else 0."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -57,6 +62,7 @@ def xor(N: int) -> Graph:
 
 
 def circle(N: int) -> Graph:
+    """Circle around the center: label 1 outside radius $\\sqrt{0.1}$, 0 inside."""
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -67,6 +73,8 @@ def circle(N: int) -> Graph:
 
 
 def spiral(N: int) -> Graph:
+    """Two interleaved spirals, N/2 points each, labeled 0 and 1."""
+
     def x(t: float) -> float:
         return t * math.cos(t) / 20.0
 
